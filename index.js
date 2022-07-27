@@ -5,10 +5,13 @@ const mobileMenu = document.querySelector('.mobile-menu')
 const cartIcon = document.querySelector('.navbar-shopping-cart');
 const productContainer = document.querySelector('#cartContainer');
 const cardContainer = document.querySelector('.cards-container');
+const productDetail = document.querySelector('#productDetail');
+const productDetailClose = document.querySelector('.product-detail-close');
 
 mailMenu.addEventListener('click',toggleDesktopMenu);
 menuIconMobile.addEventListener('click',toggleMobileMenu);
 cartIcon.addEventListener('click',toggleCartMenu)
+productDetailClose.addEventListener('click',closeProductDetail)
 
 function toggleDesktopMenu()
 {
@@ -16,6 +19,10 @@ function toggleDesktopMenu()
     if (!productContainer.classList.toggle('inactive'))
     {
         productContainer.classList.add('inactive');
+    }
+    if(!productDetail.classList.contains('inactive'))
+    {
+        productDetail.classList.add('inactive');
     }
 }
 
@@ -25,6 +32,10 @@ function toggleMobileMenu()
     if (!productContainer.classList.toggle('inactive'))
     {
         productContainer.classList.add('inactive');
+    }
+    if(!productDetail.classList.contains('inactive'))
+    {
+        productDetail.classList.add('inactive');
     }
 }
 
@@ -39,6 +50,30 @@ function toggleCartMenu(){
     {
         desktopMenu.classList.add('inactive');
     }
+    if(!productDetail.classList.contains('inactive'))
+    {
+        productDetail.classList.add('inactive');
+    }
+}
+
+function openProductDetail(){
+    productDetail.classList.remove('inactive');
+    if (!productContainer.classList.contains('inactive'))
+    {
+        productContainer.classList.add('inactive');
+    }
+    if (!mobileMenu.classList.contains('inactive'))
+    {
+        mobileMenu.classList.add('inactive');
+    }
+    if (!desktopMenu.classList.contains('inactive'))
+    {
+        desktopMenu.classList.add('inactive');
+    }
+}
+
+function closeProductDetail(){
+    productDetail.classList.add('inactive');
 }
 
 const productList =[];
@@ -77,6 +112,7 @@ function renderProduct(array){
     const img = document.createElement('img');
     img.setAttribute('src', product.image); 
     productCard.appendChild(img);
+    img.addEventListener('click',openProductDetail);
 
     const productInfo = document.createElement('div');
     productInfo.classList.add('product-info');
